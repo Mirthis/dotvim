@@ -8,12 +8,12 @@ filetype off
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
-" Specify a color scheme
-set background=dark
-colorscheme molokai
-
 " Turn on highlighting
 syntax on
+
+" Specify a color scheme
+colorscheme vividchalk
+highlight CursorLine cterm=NONE ctermbg=235
 
 " Deal with tabs and indentation nicely
 filetype plugin indent on
@@ -52,103 +52,104 @@ set nostartofline   " don't jump to first character when paging
 set cursorline      " highlight the current line
 set laststatus=2    " always show the statusline
 
+
 " Disable backup files
 set nobackup
 set noswapfile
 
 if has("autocmd")
   " au is short for autocmd
-  
+
   " Restore cursor position
   autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
-  " Change statusline color in insert mode
-  autocmd InsertEnter * highlight StatusLine ctermfg=2 ctermbg=2
-  autocmd InsertLeave * highlight StatusLine ctermfg=4 ctermbg=7
+    " Change statusline color in insert mode
+    autocmd InsertEnter * highlight StatusLine ctermfg=2 ctermbg=2
+    autocmd InsertLeave * highlight StatusLine ctermfg=4 ctermbg=7
 
-  " Change statusline color of active window
-  autocmd VimEnter * highlight StatusLine term=reverse ctermfg=4 ctermbg=7 gui=bold,reverse
+    " Change statusline color of active window
+    autocmd VimEnter * highlight StatusLine term=reverse ctermfg=4 ctermbg=7 gui=bold,reverse
 
-  " Set warning of over column 80
-  autocmd BufWinEnter * let w:m1=matchadd('Error', '\%>80v.\+', -1)
+    " Set warning of over column 80
+    autocmd BufWinEnter * let w:m1=matchadd('Error', '\%>80v.\+', -1)
 
-  " Set Filetypes
-  autocmd BufNewFile,BufRead *.less setfiletype css
-  autocmd BufNewFile,BufRead *.liquid setfiletype liquid
+    " Set Filetypes
+    autocmd BufNewFile,BufRead *.less setfiletype css
+    autocmd BufNewFile,BufRead *.liquid setfiletype liquid
 
-  " Filetypes
-  autocmd FileType javascript setlocal ts=2 sts=2 sw=2
-  autocmd FileType helpfile setlocal nonumber      " no line numbers when viewing help
-  autocmd FileType helpfile nnoremap <buffer><cr> <c-]>   " Enter selects subject
-  autocmd FileType helpfile nnoremap <buffer><bs> <c-T>   " Backspace to go back
-endif
+    " Filetypes
+    autocmd FileType javascript setlocal ts=2 sts=2 sw=2
+    autocmd FileType helpfile setlocal nonumber      " no line numbers when viewing help
+    autocmd FileType helpfile nnoremap <buffer><cr> <c-]>   " Enter selects subject
+    autocmd FileType helpfile nnoremap <buffer><bs> <c-T>   " Backspace to go back
+  endif
 
-" Set the mapleader
-let mapleader = "," 
+  " Set the mapleader
+  let mapleader = "," 
 
-" DelimitMate
-let delimitMate_expand_space = 1
-let delimitMate_expand_cr = 1
-let delimitMate_balance_matchpairs = 1
-" DelimitMate override of SnipMate's S-Tab
-imap <S-Tab> <Plug>delimitMateS-Tab
+  " DelimitMate
+  let delimitMate_expand_space = 1
+  let delimitMate_expand_cr = 1
+  let delimitMate_balance_matchpairs = 1
+  " DelimitMate override of SnipMate's S-Tab
+  imap <S-Tab> <Plug>delimitMateS-Tab
 
-"
-" MAPPINGS
-"
+  "
+  " MAPPINGS
+  "
 
-" .vimrc
-map <leader>v :vsp ~/.vimrc<cr>    " edit my .vimrc file in a vertical split
-map <leader>u :source ~/.vimrc<cr> " update the system settings from my .vimrc file
+  " .vimrc
+  map <leader>v :vsp ~/.vimrc<cr>    " edit my .vimrc file in a vertical split
+  map <leader>u :source ~/.vimrc<cr> " update the system settings from my .vimrc file
 
-" Refresh all files in the buffer
-map <leader>e :call ReloadAllBuffers()<cr>
+  " Refresh all files in the buffer
+  map <leader>e :call ReloadAllBuffers()<cr>
 
-" Toggle paste mode
-set pastetoggle=<F2>
+  " Toggle paste mode
+  set pastetoggle=<F2>
 
-" Ctrl-N to disable search match highlight
-" Note: C-N was the same as k (move to next line ) 
-nmap <silent> <C-N> :silent noh<CR>
+  " Ctrl-N to disable search match highlight
+  " Note: C-N was the same as k (move to next line ) 
+  nmap <silent> <C-N> :silent noh<CR>
 
-" Ctrl-P to Display the file browser tree
-" Note: C-P was the same as j (move to previous line)
-nmap <C-P> :NERDTreeToggle<CR>
-" ,p to show current file in the tree
-nmap <leader>p :NERDTreeFind<CR>
+  " Ctrl-P to Display the file browser tree
+  " Note: C-P was the same as j (move to previous line)
+  nmap <C-P> :NERDTreeToggle<CR>
+  " ,p to show current file in the tree
+  nmap <leader>p :NERDTreeFind<CR>
 
-" ,/ to invert comment on the current line/selection
-nmap <leader>/ :call NERDComment(0, "invert")<cr>
-vmap <leader>/ :call NERDComment(0, "invert")<cr>
+  " ,/ to invert comment on the current line/selection
+  nmap <leader>/ :call NERDComment(0, "invert")<cr>
+  vmap <leader>/ :call NERDComment(0, "invert")<cr>
 
-" Navigate splits without having to prepend with C-w
-map <C-h> <C-w>h
-map <C-k> <C-w>k
-map <C-j> <C-w>j
-map <C-l> <C-w>l
+  " Navigate splits without having to prepend with C-w
+  map <C-h> <C-w>h
+  map <C-k> <C-w>k
+  map <C-j> <C-w>j
+  map <C-l> <C-w>l
 
-" Bubble single lines (uses unimpaired)
-nmap <C-Up> [e
-nmap <C-Down> ]e
-" Bubble multiple lines (uses unimpaired)
-vmap <C-Up> [egv
-vmap <C-Down> ]egv
+  " Bubble single lines (uses unimpaired)
+  nmap <C-Up> [e
+  nmap <C-Down> ]e
+  " Bubble multiple lines (uses unimpaired)
+  vmap <C-Up> [egv
+  vmap <C-Down> ]egv
 
-" Sessions
-nmap <leader>s :SessionList<CR>
-nmap <leader>ss :SessionSave<CR>
-nmap <leader>sa :SessionSaveAs<CR>
+  " Sessions
+  nmap <leader>s :SessionList<CR>
+  nmap <leader>ss :SessionSave<CR>
+  nmap <leader>sa :SessionSaveAs<CR>
 
-" Enable the matchit plugin for selecting blocks.
-" This is required by textobj-rubyblock.
-runtime macros/matchit.vim
+  " Enable the matchit plugin for selecting blocks.
+  " This is required by textobj-rubyblock.
+  runtime macros/matchit.vim
 
-"
-" Functions
-"
+  "
+  " Functions
+  "
 
-function! ReloadAllBuffers()   
-  set noconfirm                
-  :bufdo e!                    
-  set confirm                  
-endfunction 
+  function! ReloadAllBuffers()   
+    set noconfirm                
+    :bufdo e!                    
+    set confirm                  
+  endfunction 

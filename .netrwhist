@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/home/mirthis/Development/rails_projects/sample_app_3_1'
+let g:netrw_dirhist_2='/home/mirthis/public_html/tzmblog/sites/all/modules/tzmblog_extension'
+let g:netrw_dirhist_3='/home/mirthis/public_html/tzmblog/sites/all/modules/opengraph_meta'
+let g:netrw_dirhist_4='/home/mirthis/Development/rails_projects/gift_economy/features/users'
+let g:netrw_dirhist_5='/home/mirthis/Development/rails_projects/gift_economy/spec/helpers'
